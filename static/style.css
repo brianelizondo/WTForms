@@ -1,0 +1,11 @@
+h1{
+    text-transform: capitalize;
+}
+.pet_name{
+    color:darkcyan;
+    text-transform: capitalize;
+}
+.pet_available{
+    color: darkgray;
+    font-weight: bold;
+}
