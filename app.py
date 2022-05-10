@@ -32,8 +32,9 @@ def home_page():
     Homepage list the pets with name, show photo (if present) and 
     display "Available"if the pet is available for adoption
     """
-    pets = Pet.query.order_by(desc(Pet.id)).all()
-    return render_template("home.html", pets=pets)
+    pets_availables = Pet.query.filter_by(available=True).order_by(desc(Pet.id)).all()
+    pets_no_availables = Pet.query.filter_by(available=False).order_by(desc(Pet.id)).all()
+    return render_template("home.html", pets_availables=pets_availables, pets_no_availables=pets_no_availables)
 
 @app.route("/add", methods=["GET", "POST"])
 def show_add_pets_form():
