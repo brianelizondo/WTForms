@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Pet Details: {{ pet.name }} {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1 class="display-5"><b>Pet Details:</b> {{ pet.name }}</h1>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+    <div class="alert alert-success" role="alert">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        <div class="col mt-4">
+            <img src="{{ pet.photo_url }}" class="img-thumbnail" alt="{{ pet.name }}">
+            <p class="text-start text-capitalize mt-2"><b>name:</b>  {{ pet.name }}</p>
+            <p class="text-start text-capitalize mt-2"><b>species:</b> {{ pet.species }}</p>
+            <p class="text-start text-capitalize mt-2"><b>age:</b> {{ pet.age }}</p>
+            <p class="text-start text-capitalize mt-2"><b>available:</b> {% if pet.available is false %} not {% endif %} available</p>
+        </div>
+    </div>
+    <div class="mt-2">
+        <a class="btn btn-success" href="/edit/{{ pet.id }}" role="button">Edit Pet</a>
+        <a class="btn btn-outline-secondary" href="/" role="button">Go Back</a>
+    </div>
+</div>
+{% endblock %}

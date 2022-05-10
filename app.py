@@ -4,7 +4,7 @@ from crypt import methods
 from flask import Flask, request, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy import desc
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm
 from models import db, connect_db, Pet
 
 app = Flask(__name__)
@@ -56,3 +56,33 @@ def add_pets_form():
         return redirect("/")
     else:
         return render_template("pets_add.html", form=form)
+
+@app.route("/<int:pet_id>")
+def pets_details(pet_id):
+    """
+    Show information about the given pet
+    Have a button to get to edit page
+    """
+    pet = Pet.query.get_or_404(pet_id)
+    return render_template("pets_details.html", pet=pet)
+
+@app.route("/edit/<int:pet_id>", methods=["GET", "POST"])
+def pets_edit(pet_id):
+    """
+    Show the edit page for a pet
+    Have a cancel button that returns to the detail page for a pet, and a save button that updates the pet
+    """
+
+    pet = Pet.query.get_or_404(pet_id)
+    form = EditPetForm(obj=pet)
+
+    if form.validate_on_submit():
+        pet.available = form.available.data
+        pet.photo_url = form.photo_url.data
+        pet.notes = form.notes.data
+        db.session.commit()
+        flash(f"The pet '{pet.name}' was updated!")
+        return redirect(f"/{pet_id}")
+
+    else:
+        return render_template("pets_edit.html", form=form, pet=pet)

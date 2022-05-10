@@ -20,7 +20,7 @@
     <div class="row">
         {% for pet in pets %}
         <div class="col mt-2">
-            <img src="{{ pet.photo_url }}" class="img-thumbnail" alt="{{ pet.name }}">
+            <a href="/{{ pet.id }}"><img src="{{ pet.photo_url }}" class="img-thumbnail" alt="{{ pet.name }}"></a>
             <p class="text-start mt-2"><span class="pet_name">{{ pet.name }}</span> <span class="pet_available">is {% if pet.available is false %} not {% endif %} available!</span></p>
         </div>
         {% endfor %}
