@@ -8,6 +8,15 @@
     <div class="row">
         <h1 class="display-5">Pets</h1>
     </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+    <div class="alert alert-success" role="alert">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <div class="row">
         {% for pet in pets %}
         <div class="col mt-2">
@@ -17,7 +26,7 @@
         {% endfor %}
     </div>
     <div class="mt-2">
-        <a class="btn btn-success" href="#" role="button">Add a Pet</a>
+        <a class="btn btn-success" href="/add" role="button">Add a Pet</a>
     </div>
 </div>
 {% endblock %}
