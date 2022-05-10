@@ -36,7 +36,7 @@ def home_page():
     return render_template("home.html", pets=pets)
 
 @app.route("/add", methods=["GET", "POST"])
-def add_pets_form():
+def show_add_pets_form():
     """
     Show an add form for pets
     """
@@ -58,7 +58,7 @@ def add_pets_form():
         return render_template("pets_add.html", form=form)
 
 @app.route("/<int:pet_id>")
-def pets_details(pet_id):
+def show_pets_details(pet_id):
     """
     Show information about the given pet
     Have a button to get to edit page
@@ -67,7 +67,7 @@ def pets_details(pet_id):
     return render_template("pets_details.html", pet=pet)
 
 @app.route("/edit/<int:pet_id>", methods=["GET", "POST"])
-def pets_edit(pet_id):
+def show_pets_edit_form(pet_id):
     """
     Show the edit page for a pet
     Have a cancel button that returns to the detail page for a pet, and a save button that updates the pet
